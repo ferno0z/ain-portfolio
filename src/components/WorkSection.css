@@ -1,0 +1,197 @@
+.work-section {
+  border-top: 1px solid var(--color-border);
+  padding: 5rem var(--container-pad) 6.25rem;
+}
+
+.work-section__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 2rem;
+  margin-bottom: 3.25rem;
+}
+
+.work-section__title {
+  font-family: var(--font-heading);
+  font-size: clamp(2.625rem, 6vw, 5.375rem);
+  font-weight: 700;
+  line-height: 0.95;
+  letter-spacing: -0.03em;
+  text-transform: uppercase;
+}
+
+.work-section__title span {
+  display: block;
+  font-family: var(--font-body);
+  font-size: clamp(2rem, 4.5vw, 4rem);
+  font-weight: 400;
+  font-style: italic;
+  text-transform: none;
+  color: var(--color-accent);
+}
+
+.work-section__count {
+  font-family: var(--font-heading);
+  font-size: 0.6875rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+}
+
+.work-section__grid {
+  display: grid;
+  grid-template-columns: 1.6fr 1fr 1fr;
+  gap: 0.125rem;
+}
+
+.work-card {
+  overflow: hidden;
+  background: var(--color-panel);
+}
+
+.work-card:first-child {
+  grid-row: span 2;
+}
+
+.work-card__inner {
+  position: relative;
+  padding-top: 62%;
+}
+
+.work-card:first-child .work-card__inner {
+  padding-top: 120%;
+}
+
+.work-card__placeholder,
+.work-card__overlay,
+.work-card__hover {
+  position: absolute;
+}
+
+.work-card__placeholder,
+.work-card__overlay {
+  inset: 0;
+}
+
+.work-card__placeholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.work-card:nth-child(1) .work-card__placeholder {
+  background: linear-gradient(145deg, oklch(0.2 0.03 258), oklch(0.31 0.03 260), oklch(0.21 0.03 258));
+}
+
+.work-card:nth-child(2) .work-card__placeholder {
+  background: linear-gradient(165deg, oklch(0.3 0.03 258), oklch(0.24 0.04 253));
+}
+
+.work-card:nth-child(3) .work-card__placeholder {
+  background: linear-gradient(125deg, oklch(0.28 0.03 259), oklch(0.22 0.03 257));
+}
+
+.work-card:nth-child(4) .work-card__placeholder {
+  background: linear-gradient(155deg, oklch(0.24 0.04 252), oklch(0.32 0.03 257));
+}
+
+.work-card:nth-child(5) .work-card__placeholder {
+  background: linear-gradient(140deg, oklch(0.27 0.03 259), oklch(0.21 0.03 255));
+}
+
+.work-card__play {
+  display: grid;
+  place-items: center;
+  width: 3.75rem;
+  height: 3.75rem;
+  border: 1.5px solid color-mix(in oklab, var(--color-accent) 24%, transparent);
+  opacity: 0.35;
+  transition: opacity 400ms ease;
+}
+
+.work-card__play svg {
+  width: 1.25rem;
+  height: 1.25rem;
+  margin-left: 0.1875rem;
+  fill: var(--color-accent);
+}
+
+.work-card__overlay {
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 1.5rem;
+  background: linear-gradient(180deg, transparent 40%, color-mix(in oklab, var(--color-panel) 92%, transparent) 100%);
+}
+
+.work-card__meta,
+.work-card__hover {
+  font-family: var(--font-heading);
+  font-size: 0.625rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--color-accent);
+}
+
+.work-card__title {
+  margin-bottom: 0.25rem;
+  font-family: var(--font-heading);
+  font-size: 0.9375rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  text-transform: uppercase;
+}
+
+.work-card__type {
+  color: var(--color-text-muted);
+  font-size: 0.8125rem;
+  font-style: italic;
+}
+
+.work-card__hover {
+  top: 1.25rem;
+  right: 1.25rem;
+  z-index: 3;
+  padding: 0.3125rem 0.625rem;
+  background: color-mix(in oklab, var(--color-panel) 78%, transparent);
+  backdrop-filter: blur(4px);
+  opacity: 0;
+  transform: translateY(-0.25rem);
+  transition: opacity 350ms ease, transform 350ms ease;
+}
+
+.work-card:hover .work-card__hover {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.work-card:hover .work-card__play {
+  opacity: 0;
+}
+
+@media (max-width: 56.25rem) {
+  .work-section {
+    padding-top: 4.375rem;
+    padding-bottom: 5rem;
+  }
+
+  .work-section__header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .work-section__grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .work-card:first-child {
+    grid-column: 1 / -1;
+    grid-row: auto;
+  }
+
+  .work-card:first-child .work-card__inner {
+    padding-top: 58%;
+  }
+}

@@ -1,0 +1,83 @@
+@import url('https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&display=swap');
+
+:root {
+  --color-bg: oklch(0.34 0.04 261);
+  --color-bg-deep: oklch(0.2 0.03 259);
+  --color-panel: oklch(0.26 0.03 258);
+  --color-panel-alt: oklch(0.3 0.03 257);
+  --color-accent: oklch(0.83 0.07 107);
+  --color-accent-soft: color-mix(in oklab, var(--color-accent) 24%, transparent);
+  --color-text: oklch(0.94 0.02 255);
+  --color-text-muted: color-mix(in oklab, var(--color-text) 46%, transparent);
+  --color-border: color-mix(in oklab, var(--color-accent) 18%, transparent);
+  --color-curtain: var(--color-bg);
+  --color-shadow: color-mix(in oklab, black 30%, transparent);
+  --font-heading: 'Helvetica Now Display', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  --font-body: 'Instrument Serif', Georgia, serif;
+  --space-2xs: 0.25rem;
+  --space-xs: 0.5rem;
+  --space-sm: 0.75rem;
+  --space-md: 1rem;
+  --space-lg: 1.5rem;
+  --space-xl: 2rem;
+  --space-2xl: 3rem;
+  --space-3xl: 4rem;
+  --space-4xl: 6rem;
+  --container-pad: clamp(1.5rem, 3vw, 3rem);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  background: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-body);
+  font-size: 1.0625rem;
+  line-height: 1.65;
+  overflow-x: hidden;
+}
+
+body,
+a,
+button {
+  cursor: none;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+a {
+  color: inherit;
+}
+
+button,
+input,
+textarea,
+select {
+  font: inherit;
+}
+
+section {
+  position: relative;
+}
+
+#root {
+  min-height: 100vh;
+}
+
+@media (max-width: 56.25rem) {
+  body,
+  a,
+  button {
+    cursor: auto;
+  }
+}

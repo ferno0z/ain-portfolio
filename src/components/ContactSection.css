@@ -1,0 +1,91 @@
+.contact-section {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 5rem;
+  align-items: end;
+  border-top: 1px solid var(--color-border);
+  padding: 7.5rem var(--container-pad) 5rem;
+}
+
+.contact-section__heading {
+  margin: 0 0 2rem;
+  font-family: var(--font-heading);
+  font-size: clamp(2.75rem, 6.5vw, 6rem);
+  font-weight: 700;
+  line-height: 0.9;
+  letter-spacing: -0.04em;
+  text-transform: uppercase;
+}
+
+.contact-section__heading span {
+  display: block;
+  color: var(--color-accent);
+  font-family: var(--font-body);
+  font-size: 0.78em;
+  font-style: italic;
+  font-weight: 400;
+  text-transform: none;
+}
+
+.contact-section__email {
+  display: inline-block;
+  padding-bottom: 0.25rem;
+  border-bottom: 1px solid var(--color-border);
+  color: var(--color-accent);
+  font-family: var(--font-heading);
+  font-size: clamp(0.875rem, 1.8vw, 1.25rem);
+  letter-spacing: 0.04em;
+  text-decoration: none;
+  transition: opacity 250ms ease, border-color 250ms ease;
+}
+
+.contact-section__email:hover {
+  opacity: 0.72;
+  border-color: var(--color-accent);
+}
+
+.contact-section__links {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.contact-section__links a {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 0;
+  border-bottom: 1px solid var(--color-border);
+  color: var(--color-text-muted);
+  font-family: var(--font-heading);
+  font-size: 0.75rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: color 250ms ease;
+}
+
+.contact-section__links a::after {
+  content: '↗';
+  font-size: 0.875rem;
+  transition: transform 250ms ease;
+}
+
+.contact-section__links a:hover {
+  color: var(--color-accent);
+}
+
+.contact-section__links a:hover::after {
+  transform: translate(0.1875rem, -0.1875rem);
+}
+
+@media (max-width: 56.25rem) {
+  .contact-section {
+    grid-template-columns: 1fr;
+    gap: 3rem;
+    padding-top: 5.5rem;
+    padding-bottom: 3.75rem;
+  }
+}
