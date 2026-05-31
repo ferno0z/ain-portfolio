@@ -12,11 +12,11 @@ function ContactSection({ links, onCursorChange }) {
         </h2>
         <a
           className="contact-section__email"
-          href="mailto:hello@niknurain.com"
+          href="mailto:niknurain940@gmail.com"
           onMouseEnter={() => onCursorChange(true)}
           onMouseLeave={() => onCursorChange(false)}
         >
-          hello@niknurain.com
+          niknurain940@gmail.com
         </a>
       </div>
 

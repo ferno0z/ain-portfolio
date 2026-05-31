@@ -11,7 +11,7 @@ import {
   contactLinks,
   graphicsProjects,
   marqueeLoop,
-  videoProjects,
+  workSections,
   yearsOfStorytelling,
 } from './data'
 import './App.css'
@@ -98,8 +98,7 @@ function App() {
         <HeroSection onCursorChange={setCursorLarge} />
         <Marquee items={marqueeLoop} />
         <AboutSection years={years} />
-        <WorkSection projects={videoProjects} onCursorChange={setCursorLarge} />
-        <GraphicsSection projects={graphicsProjects} onCursorChange={setCursorLarge} />
+        <WorkSection sections={workSections} onCursorChange={setCursorLarge} />
         <ContactSection links={contactLinks} onCursorChange={setCursorLarge} />
       </main>
       <SiteFooter />

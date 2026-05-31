@@ -58,18 +58,6 @@
   pointer-events: none;
 }
 
-.hero-section__year {
-  position: absolute;
-  left: var(--container-pad);
-  top: 47%;
-  z-index: 3;
-  font-family: var(--font-heading);
-  font-size: clamp(11rem, 24vw, 21rem);
-  font-weight: 700;
-  line-height: 1;
-  letter-spacing: -0.08em;
-  color: color-mix(in oklab, var(--color-text) 8%, transparent);
-}
 
 .hero-section__vertical {
   position: absolute;

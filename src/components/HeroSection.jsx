@@ -87,18 +87,17 @@ function HeroSection({ onCursorChange }) {
       </div>
 
       <div className="hero-section__shade" aria-hidden="true" />
-      <div className="hero-section__year">25</div>
-      <div className="hero-section__vertical">Videographer — Creative Director — KL</div>
+      <div className="hero-section__vertical">Videographer — Content Creator — KL</div>
 
       <div className="hero-section__content">
-        <p className="hero-section__eyebrow">Creative Portfolio — Est. 2019</p>
+        <p className="hero-section__eyebrow">Creative Portfolio</p>
         <h1 className="hero-section__title">
           <span className="hero-section__line">NIK</span>
           <span className="hero-section__line hero-section__line--accent">Nurain</span>
         </h1>
         <div className="hero-section__bottom">
           <p className="hero-section__desc">
-            Crafting cinematic narratives through the lens. Based in Kuala Lumpur.
+            Pouring care into creativity. Based in Kuala Lumpur.
           </p>
           <a
             className="hero-section__scroll"

@@ -1,22 +1,83 @@
 export const marqueeItems = [
   'Videography',
-  'Brand Films',
+  'Video Editing',
+  'Photography',
   'Graphic Design',
-  'Commercial Work',
-  'Documentary',
-  'Creative Direction',
-  'Motion',
-  'Visual Storytelling',
+  'Content Creation',
 ]
 
 export const marqueeLoop = [...marqueeItems, ...marqueeItems]
 
-export const videoProjects = [
-  { number: '01', title: 'Replace with Your Title', type: 'Brand Film — 2024' },
-  { number: '02', title: 'Replace with Your Title', type: 'Documentary — 2024' },
-  { number: '03', title: 'Replace with Your Title', type: 'Commercial — 2023' },
-  { number: '04', title: 'Replace with Your Title', type: 'Short Film — 2023' },
-  { number: '05', title: 'Replace with Your Title', type: 'Music Video — 2023' },
+function buildMuxProjects(projects, category, format, orientation) {
+  return projects.map((project, index) => ({
+    number: String(index + 1).padStart(2, '0'),
+    title: project.title,
+    type: `${category} — ${format}`,
+    playbackId: project.playbackId,
+    poster: `https://image.mux.com/${project.playbackId}/thumbnail.jpg?time=2`,
+    orientation,
+  }))
+}
+
+export const workSections = [
+  {
+    slug: 'social-media',
+    label: 'Social Media Videos',
+    title: 'Social Media Content',
+    description: 'Vertical cuts, reels, and platform-first edits built for quick attention.',
+    projects: buildMuxProjects(
+      [
+        {
+          title: 'IN8 Life - 90 Day Root Cause Program',
+          playbackId: 'S8S6b3RPxnEwxmzDjchgbIbiaxSvrBViT017vbJeU01Nc',
+        },
+        {
+          title: "IN8 Life - Zach's Health Journey",
+          playbackId: 'maNhCs201E02hE00qVHtQ7uK8KQYN00e7HTLbkEQyBLGoQ8',
+        },
+        {
+          title: 'Batik Boutique - Raya Homeware',
+          playbackId: 'G53adXoWThOt35q1CVdKAWAynRWyT4Fd01BPZxeTCyKc',
+        },
+        {
+          title: 'Batik Boutique - Chinese New Year Gift Ideas',
+          playbackId: '15JS8iOK8hYNka02T2GRTB2vXLkY7xYN02laZKHBO02a9I',
+        },
+        {
+          title: "Batik Boutique - Men's Navy Orchid Shirt",
+          playbackId: 'QE67frBc01tQKk01YrA2iM9G7015QwjiPKcO01QFqijOY00Y',
+        },
+      ],
+      'Social Media',
+      '9:16',
+      'portrait',
+    ),
+  },
+  {
+    slug: 'promotional',
+    label: 'Promotional Videos',
+    title: 'Promotional Videos',
+    description: 'Widescreen event and brand videos designed for richer storytelling.',
+    projects: buildMuxProjects(
+      [
+        {
+          title: 'Believe Fitness - Believe Open 2025 Event Video',
+          playbackId: 'Yeuc00QpQRDt72z3Z01PMMdy401wJOQshRCsLxE2o0202a100',
+        },
+        {
+          title: 'The IN8 Summit 2025 Event Video',
+          playbackId: 'g4Wlt684AL02sMHkeittMpe01rbaNDBS9QopQp4C785PM',
+        },
+        {
+          title: 'TCI Promo Video 2025',
+          playbackId: '5UwgHZ01raai00SnHGFxDJoYwlRsV81R01WJhLjzYi8CoI',
+        },
+      ],
+      'Promotional',
+      '16:9',
+      'landscape',
+    ),
+  },
 ]
 
 export const graphicsProjects = [
@@ -30,4 +91,4 @@ export const graphicsProjects = [
 
 export const contactLinks = ['Instagram', 'Vimeo', 'LinkedIn', 'Behance']
 
-export const yearsOfStorytelling = 6
+export const yearsOfStorytelling = 3
