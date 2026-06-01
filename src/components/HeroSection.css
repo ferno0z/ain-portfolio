@@ -31,6 +31,8 @@
 .hero-section__curtain {
   z-index: 90;
   will-change: transform;
+  transform: translate3d(0, 0, 0);
+  backface-visibility: hidden;
 }
 
 .hero-section__curtain-svg {
@@ -65,6 +67,9 @@
   width: min(42rem, 55vw);
   opacity: 0.82;
   pointer-events: none;
+  will-change: transform;
+  transform: translate3d(0, 0, 0);
+  backface-visibility: hidden;
 }
 
 

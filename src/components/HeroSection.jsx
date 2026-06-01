@@ -49,31 +49,34 @@ function HeroSection({ onCursorChange }) {
       })
 
       media.add('(max-width: 56.25rem)', () => {
-        gsap.set(curtainRef.current, { yPercent: -100 })
-        gsap.set(flowerRef.current, { yPercent: -8, rotate: -4, scale: 1.02 })
+        gsap.set(curtainRef.current, { yPercent: -100, force3D: true })
+        gsap.set(flowerRef.current, { yPercent: -6, rotate: -3, scale: 1.01, force3D: true })
 
-        const heroTimeline = gsap.timeline({
-          defaults: {
-            ease: 'power2.out',
-          },
-        })
-
-        heroTimeline.to(curtainRef.current, {
+        gsap.to(curtainRef.current, {
           yPercent: 0,
-          duration: 1,
-          delay: 0.15,
+          ease: 'none',
+          scrollTrigger: {
+            trigger: heroRef.current,
+            start: 'top top',
+            end: '+=55%',
+            scrub: 0.2,
+            invalidateOnRefresh: true,
+          },
         })
 
-        heroTimeline.to(
-          flowerRef.current,
-          {
-            yPercent: 2,
-            rotate: 2,
-            scale: 1,
-            duration: 1.2,
+        gsap.to(flowerRef.current, {
+          yPercent: 0,
+          rotate: 0,
+          scale: 1,
+          ease: 'none',
+          scrollTrigger: {
+            trigger: heroRef.current,
+            start: 'top top',
+            end: '+=55%',
+            scrub: 0.2,
+            invalidateOnRefresh: true,
           },
-          0,
-        )
+        })
       })
 
       return () => media.revert()
