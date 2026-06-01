@@ -20,14 +20,6 @@ function ContactSection({ links, onCursorChange }) {
         >
           niknurain940@gmail.com
         </a>
-          <a
-          className="contact-section__email"
-          href="tel:+60149204674"
-          onMouseEnter={() => onCursorChange(true)}
-          onMouseLeave={() => onCursorChange(false)}
-        >
-          +60 14-9204674
-        </a>
         </div>
       </div>
 
