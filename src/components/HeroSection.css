@@ -199,6 +199,7 @@
 @media (max-width: 56.25rem) {
   .hero-section__image {
     object-position: center 24%;
+    filter: none;
   }
 
   .hero-section__vertical {

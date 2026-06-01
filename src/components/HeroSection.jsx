@@ -14,35 +14,71 @@ function HeroSection({ onCursorChange }) {
 
   useEffect(() => {
     const context = gsap.context(() => {
-      gsap.set(curtainRef.current, { yPercent: -100 })
-      gsap.set(flowerRef.current, { yPercent: -14, rotate: -6, scale: 1.05 })
+      const media = gsap.matchMedia()
 
-      const heroTimeline = gsap.timeline({
-        scrollTrigger: {
-          trigger: heroRef.current,
-          start: 'top top',
-          end: '+=140%',
-          scrub: true,
-          pin: true,
-          anticipatePin: 1,
-        },
-      })
+      media.add('(min-width: 56.26rem)', () => {
+        gsap.set(curtainRef.current, { yPercent: -100 })
+        gsap.set(flowerRef.current, { yPercent: -14, rotate: -6, scale: 1.05 })
 
-      heroTimeline.to(curtainRef.current, {
-        yPercent: 0,
-        ease: 'none',
-      })
+        const heroTimeline = gsap.timeline({
+          scrollTrigger: {
+            trigger: heroRef.current,
+            start: 'top top',
+            end: '+=140%',
+            scrub: true,
+            pin: true,
+            anticipatePin: 1,
+          },
+        })
 
-      heroTimeline.to(
-        flowerRef.current,
-        {
-          yPercent: 10,
-          rotate: 6,
-          scale: 1,
+        heroTimeline.to(curtainRef.current, {
+          yPercent: 0,
           ease: 'none',
-        },
-        0,
-      )
+        })
+
+        heroTimeline.to(
+          flowerRef.current,
+          {
+            yPercent: 10,
+            rotate: 6,
+            scale: 1,
+            ease: 'none',
+          },
+          0,
+        )
+      })
+
+      media.add('(max-width: 56.25rem)', () => {
+        gsap.set(curtainRef.current, { yPercent: -100 })
+        gsap.set(flowerRef.current, { yPercent: -10, rotate: -4, scale: 1.02 })
+
+        const heroTimeline = gsap.timeline({
+          scrollTrigger: {
+            trigger: heroRef.current,
+            start: 'top top',
+            end: 'bottom top',
+            scrub: 0.4,
+          },
+        })
+
+        heroTimeline.to(curtainRef.current, {
+          yPercent: 0,
+          ease: 'none',
+        })
+
+        heroTimeline.to(
+          flowerRef.current,
+          {
+            yPercent: 6,
+            rotate: 4,
+            scale: 1,
+            ease: 'none',
+          },
+          0,
+        )
+      })
+
+      return () => media.revert()
     }, heroRef)
 
     return () => context.revert()
