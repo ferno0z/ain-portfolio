@@ -83,18 +83,11 @@ function HeroSection({ onCursorChange }) {
       </div>
 
       <div className="hero-section__curtain" ref={curtainRef}>
-        <svg
-          aria-hidden="true"
-          className="hero-section__curtain-svg"
-          viewBox="0 0 100 100"
-          preserveAspectRatio="none"
-        >
-          <rect width="100" height="100" fill="var(--color-curtain)" />
-        </svg>
+        <div className="hero-section__curtain-panel" aria-hidden="true" />
         <img className="hero-section__flower" ref={flowerRef} src={flower} alt="" aria-hidden="true" />
-        <div className="hero-section__curtain-text" aria-hidden="true">
+        <h3 className="hero-section__curtain-text" aria-hidden="true">
           creative portfolio
-        </div>
+        </h3>
       </div>
 
       <div className="hero-section__shade" aria-hidden="true" />
