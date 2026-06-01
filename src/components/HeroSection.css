@@ -30,8 +30,9 @@
 
 .hero-section__curtain {
   z-index: 90;
+  will-change: transform;
+  transform: translate3d(0, 0, 0);
   backface-visibility: hidden;
-  contain: layout paint;
 }
 
 .hero-section__curtain-panel {
@@ -39,9 +40,6 @@
   inset: 0;
   z-index: 1;
   background: var(--color-curtain);
-  will-change: transform;
-  transform: translate3d(0, 0, 0);
-  backface-visibility: hidden;
 }
 
 .hero-section__curtain-text {
@@ -214,9 +212,7 @@
   }
 
   .hero-section__shade {
-    background:
-      linear-gradient(180deg, color-mix(in oklab, var(--color-bg-deep) 42%, transparent), transparent 26%),
-      linear-gradient(180deg, transparent 48%, color-mix(in oklab, var(--color-bg-deep) 84%, transparent) 100%);
+    display: none;
   }
 
   .hero-section__vertical {
@@ -232,7 +228,6 @@
     top: 10%;
     right: -10%;
     opacity: 0.58;
-    will-change: auto;
     transform: none;
   }
 

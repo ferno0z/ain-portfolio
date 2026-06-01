@@ -10,7 +10,6 @@ gsap.registerPlugin(ScrollTrigger)
 function HeroSection({ onCursorChange }) {
   const heroRef = useRef(null)
   const curtainRef = useRef(null)
-  const curtainPanelRef = useRef(null)
   const flowerRef = useRef(null)
 
   useEffect(() => {
@@ -50,14 +49,14 @@ function HeroSection({ onCursorChange }) {
       })
 
       media.add('(max-width: 56.25rem)', () => {
-        gsap.set(curtainPanelRef.current, { yPercent: -100, force3D: true })
+        gsap.set(curtainRef.current, { yPercent: -100, force3D: true })
         gsap.set(flowerRef.current, { yPercent: 0, rotate: 0, scale: 1, force3D: true })
 
         const heroTimeline = gsap.timeline({
           scrollTrigger: {
             trigger: heroRef.current,
             start: 'top top',
-            end: '+=75%',
+            end: '+=85%',
             scrub: true,
             pin: true,
             anticipatePin: 1,
@@ -65,7 +64,7 @@ function HeroSection({ onCursorChange }) {
           },
         })
 
-        heroTimeline.to(curtainPanelRef.current, {
+        heroTimeline.to(curtainRef.current, {
           yPercent: 0,
           ease: 'none',
         })
@@ -84,7 +83,7 @@ function HeroSection({ onCursorChange }) {
       </div>
 
       <div className="hero-section__curtain" ref={curtainRef}>
-        <div className="hero-section__curtain-panel" ref={curtainPanelRef} aria-hidden="true" />
+        <div className="hero-section__curtain-panel" aria-hidden="true" />
         <img className="hero-section__flower" ref={flowerRef} src={flower} alt="" aria-hidden="true" />
         <h3 className="hero-section__curtain-text" aria-hidden="true">
           creative portfolio
