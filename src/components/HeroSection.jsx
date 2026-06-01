@@ -6,6 +6,7 @@ import flower from '../assets/flower.png'
 import './HeroSection.css'
 
 gsap.registerPlugin(ScrollTrigger)
+ScrollTrigger.config({ ignoreMobileResize: true })
 
 function HeroSection({ onCursorChange }) {
   const heroRef = useRef(null)
@@ -49,6 +50,8 @@ function HeroSection({ onCursorChange }) {
       })
 
       media.add('(max-width: 56.25rem)', () => {
+        const normalizer = ScrollTrigger.normalizeScroll(true)
+
         gsap.set(curtainRef.current, { yPercent: -100, force3D: true })
         gsap.set(flowerRef.current, { yPercent: 0, rotate: 0, scale: 1, force3D: true })
 
@@ -59,7 +62,7 @@ function HeroSection({ onCursorChange }) {
             end: '+=85%',
             scrub: true,
             pin: true,
-            anticipatePin: 1,
+            anticipatePin: 1.5,
             invalidateOnRefresh: true,
           },
         })
@@ -68,6 +71,10 @@ function HeroSection({ onCursorChange }) {
           yPercent: 0,
           ease: 'none',
         })
+
+        return () => {
+          normalizer?.kill?.()
+        }
       })
 
       return () => media.revert()
