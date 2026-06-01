@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef } from 'react'
+import { useEffect, useRef } from 'react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import ainHero from '../assets/ain-hero.png'
@@ -11,10 +11,6 @@ function HeroSection({ onCursorChange }) {
   const heroRef = useRef(null)
   const curtainRef = useRef(null)
   const flowerRef = useRef(null)
-  const curtainId = useMemo(
-    () => `hero-curtain-mask-${Math.random().toString(36).slice(2, 9)}`,
-    [],
-  )
 
   useEffect(() => {
     const context = gsap.context(() => {
@@ -59,31 +55,18 @@ function HeroSection({ onCursorChange }) {
       </div>
 
       <div className="hero-section__curtain" ref={curtainRef}>
-        <img className="hero-section__flower" ref={flowerRef} src={flower} alt="" aria-hidden="true" />
         <svg
           aria-hidden="true"
           className="hero-section__curtain-svg"
           viewBox="0 0 100 100"
           preserveAspectRatio="none"
         >
-          <defs>
-            <mask id={curtainId}>
-              <rect width="100" height="100" fill="white" />
-              <text
-                x="50"
-                y="54"
-                textAnchor="middle"
-                dominantBaseline="middle"
-                textLength="84"
-                lengthAdjust="spacingAndGlyphs"
-                fill="black"
-              >
-                creative portfolio
-              </text>
-            </mask>
-          </defs>
-          <rect width="100" height="100" fill="var(--color-curtain)" mask={`url(#${curtainId})`} />
+          <rect width="100" height="100" fill="var(--color-curtain)" />
         </svg>
+        <img className="hero-section__flower" ref={flowerRef} src={flower} alt="" aria-hidden="true" />
+        <div className="hero-section__curtain-text" aria-hidden="true">
+          creative portfolio
+        </div>
       </div>
 
       <div className="hero-section__shade" aria-hidden="true" />

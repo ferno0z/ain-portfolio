@@ -1,5 +1,6 @@
 import SectionLabel from './SectionLabel'
 import './ContactSection.css'
+import { contactLinks } from '../data'
 
 function ContactSection({ links, onCursorChange }) {
   return (
@@ -10,7 +11,8 @@ function ContactSection({ links, onCursorChange }) {
           Let&apos;s make
           <span>something real.</span>
         </h2>
-        <a
+        <div className='social-wrapper'>
+               <a
           className="contact-section__email"
           href="mailto:niknurain940@gmail.com"
           onMouseEnter={() => onCursorChange(true)}
@@ -18,18 +20,27 @@ function ContactSection({ links, onCursorChange }) {
         >
           niknurain940@gmail.com
         </a>
+          <a
+          className="contact-section__email"
+          href="tel:+60149204674"
+          onMouseEnter={() => onCursorChange(true)}
+          onMouseLeave={() => onCursorChange(false)}
+        >
+          +60 14-9204674
+        </a>
+        </div>
       </div>
 
       <div className="contact-section__right reveal reveal-delay-1">
         <ul className="contact-section__links">
-          {links.map((link) => (
-            <li key={link}>
+          {contactLinks.map((social) => (
+            <li key={social.link}>
               <a
-                href="#"
+                href={social.link}
                 onMouseEnter={() => onCursorChange(true)}
                 onMouseLeave={() => onCursorChange(false)}
               >
-                {link}
+                {social.title}
               </a>
             </li>
           ))}

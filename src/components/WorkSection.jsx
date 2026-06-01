@@ -222,7 +222,6 @@ function WorkSection({ sections, onCursorChange }) {
           <div className="work-group" key={section.slug}>
             <div className={`work-group__intro reveal reveal-delay-${(index % 3) + 1}`}>
               <div>
-                
                 <h2 className="work-group__title">{section.title}</h2>
               </div>
               <p className="work-group__desc">{section.description}</p>

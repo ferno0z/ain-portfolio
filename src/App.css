@@ -16,8 +16,8 @@
   top: 0;
   left: 0;
   z-index: 1600;
-  width: 0.5rem;
-  height: 0.5rem;
+  width: 1.5rem;
+  height: 1.5rem;
   border-radius: 999px;
   background: var(--color-accent);
   pointer-events: none;

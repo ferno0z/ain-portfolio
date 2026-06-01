@@ -70,6 +70,7 @@
   line-height: 0.95;
   letter-spacing: -0.03em;
   text-transform: uppercase;
+  color:var(--color-accent);
 }
 
 .work-group__desc {
@@ -78,6 +79,7 @@
   line-height: 1.75;
   font-style: italic;
   color: var(--color-text-muted);
+
 }
 
 .work-group__grid {
@@ -90,13 +92,13 @@
   flex-wrap: wrap;
   justify-content: center;
   gap: 1.5rem;
-  width: min(100%, 60rem);
+  width: min(100%, 90rem);
   margin: 0 auto;
 }
 
 .work-group__grid--social-media .work-card {
   flex: 0 0 calc((100% - 3rem) / 3);
-  max-width: 18rem;
+  /* max-width: 18rem; */
 }
 
 .work-group__grid--promotional {
@@ -192,6 +194,7 @@
   font-weight: 700;
   letter-spacing: -0.01em;
   text-transform: uppercase;
+  
 }
 
 .work-card__type {
@@ -236,6 +239,12 @@
   padding: 1.5rem;
   background: color-mix(in oklab, var(--color-bg) 68%, black);
   backdrop-filter: blur(16px);
+  cursor: none;
+}
+
+.work-modal *,
+.work-modal video {
+  cursor: none;
 }
 
 .work-modal__panel {
@@ -305,7 +314,7 @@
 .work-modal__title {
   margin: 0.375rem 0 0;
   font-family: var(--font-heading);
-  font-size: clamp(1.5rem, 3vw, 2.5rem);
+  font-size: clamp(1.5rem, 3vw, 1.5rem);
   line-height: 0.95;
   letter-spacing: -0.03em;
   text-transform: uppercase;
@@ -344,6 +353,11 @@
 
 @media (max-width: 75rem) {
   .work-group__grid--social-media {
+    width: 100%;
+    gap: 1rem;
+  }
+
+  .work-group__grid--promotional {
     width: 100%;
     gap: 1rem;
   }

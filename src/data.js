@@ -89,6 +89,10 @@ export const graphicsProjects = [
   { title: 'Packaging Design', subtitle: 'Product — 2023', pattern: 'hex' },
 ]
 
-export const contactLinks = ['Instagram', 'Vimeo', 'LinkedIn', 'Behance']
+export const contactLinks = [
+  {title: 'Linkedin', link:'https://linkedin.com'},
+  
+
+]
 
 export const yearsOfStorytelling = 3
