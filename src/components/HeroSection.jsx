@@ -50,7 +50,7 @@ function HeroSection({ onCursorChange }) {
 
       media.add('(max-width: 56.25rem)', () => {
         gsap.set(curtainRef.current, { yPercent: -100, force3D: true })
-        gsap.set(flowerRef.current, { yPercent: -6, rotate: -3, scale: 1.01, force3D: true })
+        gsap.set(flowerRef.current, { yPercent: 0, rotate: 0, scale: 1, force3D: true })
 
         gsap.to(curtainRef.current, {
           yPercent: 0,
@@ -58,22 +58,8 @@ function HeroSection({ onCursorChange }) {
           scrollTrigger: {
             trigger: heroRef.current,
             start: 'top top',
-            end: '+=55%',
-            scrub: 0.2,
-            invalidateOnRefresh: true,
-          },
-        })
-
-        gsap.to(flowerRef.current, {
-          yPercent: 0,
-          rotate: 0,
-          scale: 1,
-          ease: 'none',
-          scrollTrigger: {
-            trigger: heroRef.current,
-            start: 'top top',
-            end: '+=55%',
-            scrub: 0.2,
+            end: '+=32%',
+            scrub: 0.12,
             invalidateOnRefresh: true,
           },
         })
