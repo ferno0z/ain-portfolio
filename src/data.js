@@ -90,7 +90,7 @@ export const graphicsProjects = [
 ]
 
 export const contactLinks = [
-  {title: 'Linkedin', link:'https://linkedin.com'},
+  {title: 'Linkedin', link:'https://www.linkedin.com/in/nik-nurain-nik-azlan-941507288/'},
   
 
 ]
