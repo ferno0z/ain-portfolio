@@ -52,16 +52,21 @@ function HeroSection({ onCursorChange }) {
         gsap.set(curtainRef.current, { yPercent: -100, force3D: true })
         gsap.set(flowerRef.current, { yPercent: 0, rotate: 0, scale: 1, force3D: true })
 
-        gsap.to(curtainRef.current, {
-          yPercent: 0,
-          ease: 'none',
+        const heroTimeline = gsap.timeline({
           scrollTrigger: {
             trigger: heroRef.current,
             start: 'top top',
-            end: '+=32%',
-            scrub: 0.12,
+            end: '+=85%',
+            scrub: true,
+            pin: true,
+            anticipatePin: 1,
             invalidateOnRefresh: true,
           },
+        })
+
+        heroTimeline.to(curtainRef.current, {
+          yPercent: 0,
+          ease: 'none',
         })
       })
 

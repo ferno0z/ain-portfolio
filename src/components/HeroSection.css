@@ -202,9 +202,19 @@
 }
 
 @media (max-width: 56.25rem) {
+  .hero-section {
+    min-height: 100svh;
+  }
+
   .hero-section__image {
     object-position: center 24%;
     filter: none;
+  }
+
+  .hero-section__shade {
+    background:
+      linear-gradient(180deg, color-mix(in oklab, var(--color-bg-deep) 42%, transparent), transparent 26%),
+      linear-gradient(180deg, transparent 48%, color-mix(in oklab, var(--color-bg-deep) 84%, transparent) 100%);
   }
 
   .hero-section__vertical {
@@ -216,10 +226,11 @@
   }
 
   .hero-section__flower {
-    width: min(28rem, 88vw);
-    top: 8%;
-    right: -18%;
-    opacity: 0.72;
+    width: min(24rem, 74vw);
+    top: 10%;
+    right: -10%;
+    opacity: 0.58;
+    transform: none;
   }
 
   .hero-section__bottom {
