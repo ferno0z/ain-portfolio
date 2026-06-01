@@ -79,6 +79,7 @@
   line-height: 1.75;
   font-style: italic;
   color: var(--color-text-muted);
+  text-align:end;
 
 }
 
@@ -373,6 +374,22 @@
     padding-top: 4.375rem;
     padding-bottom: 5rem;
   }
+
+  .work-group__desc {
+  margin: 0;
+  font-size: 0.9375rem;
+  line-height: 1.75;
+  font-style: italic;
+  color: var(--color-text-muted);
+  text-align:start;
+
+  }
+
+  .work-group__intro {
+    gap:4px;
+  }
+
+
 
   .work-section__header,
   .work-group__intro {
