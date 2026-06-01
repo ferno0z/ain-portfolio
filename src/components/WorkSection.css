@@ -198,12 +198,6 @@
   
 }
 
-.work-card__type {
-  color: var(--color-text-muted);
-  font-size: 0.8125rem;
-  font-style: italic;
-}
-
 .work-card__hover {
   top: 1rem;
   right: 1rem;
@@ -237,7 +231,7 @@
   z-index: 1400;
   display: grid;
   place-items: center;
-  padding: 1.5rem;
+  padding: 1.25rem;
   background: color-mix(in oklab, var(--color-bg) 68%, black);
   backdrop-filter: blur(16px);
   cursor: none;
@@ -250,16 +244,16 @@
 
 .work-modal__panel {
   width: min(100%, 72rem);
-  max-height: calc(100vh - 3rem);
+  max-height: calc(100vh - 2.5rem);
   overflow: hidden;
-  padding: 1rem;
+  padding: 0.875rem;
   background: color-mix(in oklab, var(--color-panel) 94%, black);
   border: 1px solid var(--color-border);
 }
 
 .work-modal__close {
-  margin-left: auto;
   display: grid;
+  flex: 0 0 auto;
   place-items: center;
   width: 2.5rem;
   height: 2.5rem;
@@ -272,17 +266,25 @@
 }
 
 .work-modal__header {
+  display: grid;
+  gap: 0.75rem;
+  margin: 0 0 0.875rem;
+}
+
+.work-modal__topbar {
   display: flex;
+  align-items: flex-start;
   justify-content: space-between;
   gap: 1rem;
-  align-items: end;
-  margin: 1rem 0 1.25rem;
+}
+
+.work-modal__heading {
+  min-width: 0;
 }
 
 .work-modal__side {
-  display: grid;
-  gap: 0.875rem;
-  justify-items: end;
+  display: flex;
+  justify-content: flex-end;
 }
 
 .work-modal__controls {
@@ -321,12 +323,6 @@
   text-transform: uppercase;
 }
 
-.work-modal__type {
-  color: var(--color-text-muted);
-  font-size: 0.875rem;
-  font-style: italic;
-}
-
 .work-modal__video-wrap {
   display: flex;
   align-items: center;
@@ -336,13 +332,13 @@
 
 .work-modal__video-wrap.is-landscape {
   aspect-ratio: 16 / 9;
-  max-height: calc(100vh - 12rem);
+  max-height: calc(100vh - 11.25rem);
 }
 
 .work-modal__video-wrap.is-portrait {
   aspect-ratio: 9 / 16;
   width: min(100%, 22rem);
-  max-height: calc(100vh - 12rem);
+  max-height: calc(100vh - 11.25rem);
   margin: 0 auto;
 }
 
@@ -399,28 +395,31 @@
   }
 
   .work-modal {
-    padding: 0.75rem;
+    padding: 0.625rem;
   }
 
   .work-modal__panel {
-    max-height: calc(100vh - 1.5rem);
-    padding: 0.875rem;
+    max-height: calc(100vh - 1.25rem);
+    padding: 0.75rem;
   }
 
-  .work-modal__header {
-    flex-direction: column;
+  .work-modal__topbar {
     align-items: flex-start;
   }
 
   .work-modal__side,
   .work-modal__controls {
-    justify-items: start;
     justify-content: flex-start;
+  }
+
+  .work-modal__side {
+    flex-direction: column;
+    align-items: flex-start;
   }
 
   .work-modal__video-wrap.is-landscape,
   .work-modal__video-wrap.is-portrait {
-    max-height: calc(100vh - 10.5rem);
+    max-height: calc(100vh - 9.75rem);
   }
 
   .work-modal__video-wrap.is-portrait {

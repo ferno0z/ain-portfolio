@@ -125,7 +125,6 @@ function WorkCard({ project, hint, onCursorChange, onOpen, previewRefs }) {
         <div className="work-card__overlay">
           <div className="work-card__meta">{project.number}</div>
           <div className="work-card__title">{project.title}</div>
-          <div className="work-card__type">{project.type}</div>
         </div>
         <div className="work-card__hover">{hint}</div>
       </div>
@@ -246,16 +245,17 @@ function WorkSection({ sections, onCursorChange }) {
       {activeProject ? (
         <div className="work-modal" onClick={closeModal} role="dialog" aria-modal="true" aria-label={activeProject.title}>
           <div className="work-modal__panel" onClick={(event) => event.stopPropagation()}>
-            <button className="work-modal__close" type="button" onClick={closeModal} aria-label="Close video">
-              ×
-            </button>
             <div className="work-modal__header">
-              <div>
-                <div className="work-modal__meta">{activeProject.number}</div>
-                <h3 className="work-modal__title">{activeProject.title}</h3>
+              <div className="work-modal__topbar">
+                <div className="work-modal__heading">
+                  <div className="work-modal__meta">{activeProject.number}</div>
+                  <h3 className="work-modal__title">{activeProject.title}</h3>
+                </div>
+                <button className="work-modal__close" type="button" onClick={closeModal} aria-label="Close video">
+                  ×
+                </button>
               </div>
               <div className="work-modal__side">
-                <div className="work-modal__type">{activeProject.type}</div>
                 <div className="work-modal__controls">
                   <button className="work-modal__action" type="button" onClick={toggleModalPlayback}>
                     {isModalPlaying ? 'Pause' : 'Play'}
