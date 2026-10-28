@@ -6,8 +6,7 @@
 }
 
 .hero-section__image-wrap,
-.hero-section__shade,
-.hero-section__curtain {
+.hero-section__shade {
   position: absolute;
   inset: 0;
 }
@@ -27,51 +26,6 @@
     radial-gradient(circle at 28% 48%, color-mix(in oklab, white 16%, transparent), transparent 30%),
     linear-gradient(180deg, transparent 42%, color-mix(in oklab, var(--color-bg-deep) 88%, transparent) 100%);
 }
-
-.hero-section__curtain {
-  z-index: 90;
-  will-change: transform;
-  transform: translate3d(0, 0, 0);
-  backface-visibility: hidden;
-}
-
-.hero-section__curtain-panel {
-  position: absolute;
-  inset: 0;
-  z-index: 1;
-  background: var(--color-curtain);
-}
-
-.hero-section__curtain-text {
-  position: absolute;
-  top: 54%;
-  left: 50%;
-  z-index: 3;
-  margin: 0;
-  transform: translate(-50%, -50%);
-  font-family: var(--font-heading);
-  font-size: 120px;
-  font-weight: 700;
-  letter-spacing: -0.06em;
-  text-transform: lowercase;
-  white-space: nowrap;
-  color: var(--color-accent);
-  pointer-events: none;
-}
-
-.hero-section__flower {
-  position: absolute;
-  top: 2%;
-  right: -4%;
-  z-index: 2;
-  width: min(42rem, 55vw);
-  opacity: 0.82;
-  pointer-events: none;
-  will-change: transform;
-  transform: translate3d(0, 0, 0);
-  backface-visibility: hidden;
-}
-
 
 .hero-section__vertical {
   position: absolute;
@@ -120,7 +74,7 @@
 .hero-section__line {
   display: block;
   font-family: var(--font-heading);
-  font-size: clamp(4.5rem, 10vw, 10rem);
+  font-size: clamp(2.5rem, 10vw, 5rem);
   font-weight: 700;
   letter-spacing: -0.045em;
   animation: slide-up 800ms both;
@@ -217,18 +171,6 @@
 
   .hero-section__vertical {
     display: none;
-  }
-
-  .hero-section__curtain-text {
-    font-size: 48px;
-  }
-
-  .hero-section__flower {
-    width: min(24rem, 74vw);
-    top: 10%;
-    right: -10%;
-    opacity: 0.58;
-    transform: none;
   }
 
   .hero-section__bottom {

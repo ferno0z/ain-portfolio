@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useImperativeHandle, useRef, useState } from 'react'
 import SectionLabel from './SectionLabel'
 import './WorkSection.css'
 
@@ -10,68 +10,115 @@ function getVideoSource(project) {
   return project.src
 }
 
-function ManagedVideo({ project, videoRef, ...props }) {
+function ManagedVideo({ project, videoRef, onPlaybackError, autoPlay = false, ...props }) {
   const internalRef = useRef(null)
+  useImperativeHandle(videoRef, () => internalRef.current)
 
   useEffect(() => {
     const video = internalRef.current
     if (!video) return undefined
 
-    if (!project.playbackId) {
-      video.src = project.src
-      return undefined
-    }
-
     const source = getVideoSource(project)
-
-    if (video.canPlayType('application/vnd.apple.mpegurl')) {
-      video.src = source
-      return undefined
-    }
-
     let hlsInstance
     let isCancelled = false
+    const reportError = (message, details) => {
+      if (isCancelled) return
+      console.error('[Video playback]', project.title, message, details)
+      onPlaybackError?.(message)
+    }
+    const handleMediaError = () => {
+      reportError(`Video could not load (media error ${video.error?.code ?? 'unknown'}). Try again.`, video.error)
+    }
+    const requestAutoplay = () => {
+      if (!autoPlay) return
+      video.play().catch((error) => {
+        if (isCancelled || error.name === 'AbortError') return
+        reportError(error.name === 'NotAllowedError'
+          ? 'Your browser paused automatic playback. Press Play to start.'
+          : 'Playback could not start. Try again.', error)
+      })
+    }
+    const startPreview = () => hlsInstance?.startLoad()
+    const stopPreview = () => hlsInstance?.stopLoad()
+    const startupTimeout = autoPlay ? window.setTimeout(() => {
+      if (video.readyState < HTMLMediaElement.HAVE_FUTURE_DATA) {
+        reportError('The video is taking too long to load. Try again or check your connection.', {
+          readyState: video.readyState,
+          networkState: video.networkState,
+          source,
+        })
+      }
+    }, 20000) : undefined
+    const handleCanPlay = () => window.clearTimeout(startupTimeout)
+
+    video.addEventListener('error', handleMediaError)
+    video.addEventListener('canplay', handleCanPlay)
+    if (!autoPlay) {
+      video.addEventListener('play', startPreview)
+      video.addEventListener('pause', stopPreview)
+    }
 
     const attachHls = async () => {
+      if (!project.playbackId) {
+        video.src = source
+        requestAutoplay()
+        return
+      }
       const { default: Hls } = await import('hls.js')
 
       if (isCancelled) return
 
       if (!Hls.isSupported()) {
-        video.src = source
+        if (video.canPlayType('application/vnd.apple.mpegurl')) {
+          video.src = source
+          requestAutoplay()
+        } else {
+          reportError('This browser does not support this video format.')
+        }
         return
       }
 
-      hlsInstance = new Hls()
-      hlsInstance.loadSource(source)
+      // Previews only download media while playing; the modal gets priority.
+      hlsInstance = new Hls({ autoStartLoad: autoPlay, capLevelToPlayerSize: true })
+      hlsInstance.on(Hls.Events.ERROR, (_event, data) => {
+        if (!data.fatal) return
+        const status = data.response?.code
+        reportError(`Video streaming failed (${data.details}${status ? `, HTTP ${status}` : ''}). Try again.`, data)
+      })
+      hlsInstance.on(Hls.Events.MANIFEST_PARSED, () => {
+        if (!autoPlay && !video.paused) startPreview()
+        requestAutoplay()
+      })
+      hlsInstance.on(Hls.Events.MEDIA_ATTACHED, () => hlsInstance.loadSource(source))
       hlsInstance.attachMedia(video)
     }
 
-    attachHls()
+    attachHls().catch((error) => reportError('The video player could not initialize. Try again.', error))
 
     return () => {
       isCancelled = true
+      window.clearTimeout(startupTimeout)
+      video.removeEventListener('error', handleMediaError)
+      video.removeEventListener('canplay', handleCanPlay)
+      video.removeEventListener('play', startPreview)
+      video.removeEventListener('pause', stopPreview)
       if (hlsInstance) hlsInstance.destroy()
+      video.removeAttribute('src')
+      video.load()
     }
-  }, [project])
+  }, [project, autoPlay, onPlaybackError])
 
   return (
     <video
       {...props}
+      autoPlay={autoPlay}
       poster={project.poster}
-      ref={(node) => {
-        internalRef.current = node
-        if (typeof videoRef === 'function') {
-          videoRef(node)
-        } else if (videoRef) {
-          videoRef.current = node
-        }
-      }}
+      ref={internalRef}
     />
   )
 }
 
-function WorkCard({ project, hint, onCursorChange, onOpen, previewRefs }) {
+function WorkCard({ project, hint, onCursorChange, onOpen, onPreviewRef }) {
   const projectKey = project.playbackId ?? project.src
 
   const playPreview = (event) => {
@@ -112,7 +159,7 @@ function WorkCard({ project, hint, onCursorChange, onOpen, previewRefs }) {
             playsInline
             preload="metadata"
             videoRef={(node) => {
-              previewRefs.current[projectKey] = node
+              onPreviewRef(projectKey, node)
             }}
           />
           <div className="work-card__play">
@@ -135,8 +182,10 @@ function WorkCard({ project, hint, onCursorChange, onOpen, previewRefs }) {
 function WorkSection({ sections, onCursorChange }) {
   const totalProjects = sections.reduce((count, section) => count + section.projects.length, 0)
   const [activeProject, setActiveProject] = useState(null)
-  const [isModalPlaying, setIsModalPlaying] = useState(true)
+  const [isModalPlaying, setIsModalPlaying] = useState(false)
   const [isModalMuted, setIsModalMuted] = useState(false)
+  const [modalError, setModalError] = useState(null)
+  const [playbackAttempt, setPlaybackAttempt] = useState(0)
   const modalVideoRef = useRef(null)
   const previewRefs = useRef({})
 
@@ -150,7 +199,8 @@ function WorkSection({ sections, onCursorChange }) {
 
   const openModal = (project) => {
     pauseAllPreviews()
-    setIsModalPlaying(true)
+    setIsModalPlaying(false)
+    setModalError(null)
     setIsModalMuted(false)
     setActiveProject(project)
     onCursorChange(false)
@@ -162,7 +212,8 @@ function WorkSection({ sections, onCursorChange }) {
       modalVideoRef.current.currentTime = 0
     }
     setActiveProject(null)
-    setIsModalPlaying(true)
+    setIsModalPlaying(false)
+    setModalError(null)
     setIsModalMuted(false)
   }
 
@@ -171,7 +222,13 @@ function WorkSection({ sections, onCursorChange }) {
     if (!video) return
 
     if (video.paused) {
-      video.play().catch(() => {})
+      video.play().catch((error) => {
+        if (error.name === 'AbortError') return
+        console.error('[Video playback]', error)
+        setModalError(error.name === 'NotAllowedError'
+          ? 'Your browser blocked playback. Check this site’s autoplay permission.'
+          : 'Playback could not start. Try again.')
+      })
       return
     }
 
@@ -234,7 +291,7 @@ function WorkSection({ sections, onCursorChange }) {
                   hint="Open with sound"
                   onCursorChange={onCursorChange}
                   onOpen={openModal}
-                  previewRefs={previewRefs}
+                  onPreviewRef={(key, node) => { previewRefs.current[key] = node }}
                 />
               ))}
             </div>
@@ -266,8 +323,19 @@ function WorkSection({ sections, onCursorChange }) {
                 </div>
               </div>
             </div>
+            {modalError ? (
+              <div className="work-modal__error" role="status">
+                <p>{modalError}</p>
+                <button className="work-modal__action" type="button" onClick={() => {
+                  setModalError(null)
+                  setIsModalPlaying(false)
+                  setPlaybackAttempt((attempt) => attempt + 1)
+                }}>Try again</button>
+              </div>
+            ) : null}
             <div className={`work-modal__video-wrap ${activeProject.orientation === 'portrait' ? 'is-portrait' : 'is-landscape'}`}>
               <ManagedVideo
+                key={`${activeProject.playbackId ?? activeProject.src}-${playbackAttempt}`}
                 className="work-modal__video"
                 project={activeProject}
                 controls
@@ -275,8 +343,11 @@ function WorkSection({ sections, onCursorChange }) {
                 playsInline
                 preload="metadata"
                 videoRef={modalVideoRef}
+                onPlaybackError={setModalError}
                 onPlay={() => setIsModalPlaying(true)}
+                onPlaying={() => setModalError(null)}
                 onPause={() => setIsModalPlaying(false)}
+                onEnded={() => setIsModalPlaying(false)}
                 onVolumeChange={(event) => setIsModalMuted(event.currentTarget.muted)}
               />
             </div>

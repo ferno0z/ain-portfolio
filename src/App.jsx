@@ -4,12 +4,10 @@ import HeroSection from './components/HeroSection'
 import Marquee from './components/Marquee'
 import AboutSection from './components/AboutSection'
 import WorkSection from './components/WorkSection'
-import GraphicsSection from './components/GraphicsSection'
 import ContactSection from './components/ContactSection'
 import SiteFooter from './components/SiteFooter'
 import {
   contactLinks,
-  graphicsProjects,
   marqueeLoop,
   workSections,
   yearsOfStorytelling,
@@ -23,15 +21,45 @@ function App() {
 
   useEffect(() => {
     const cursor = cursorRef.current
-    if (!cursor || window.matchMedia('(pointer: coarse)').matches) return undefined
+    if (!cursor) return undefined
 
-    const moveCursor = ({ clientX, clientY }) => {
-      cursor.style.left = `${clientX}px`
-      cursor.style.top = `${clientY}px`
+    const mouseAvailable = window.matchMedia('(any-hover: hover) and (any-pointer: fine)')
+
+    const hideCursor = () => {
+      cursor.style.visibility = 'hidden'
+      document.documentElement.classList.remove('has-custom-cursor')
+      setCursorLarge(false)
     }
 
-    window.addEventListener('mousemove', moveCursor)
-    return () => window.removeEventListener('mousemove', moveCursor)
+    const moveCursor = ({ clientX, clientY, pointerType }) => {
+      if (pointerType !== 'mouse' || !mouseAvailable.matches) {
+        hideCursor()
+        return
+      }
+      cursor.style.left = `${clientX}px`
+      cursor.style.top = `${clientY}px`
+      cursor.style.visibility = 'visible'
+      document.documentElement.classList.add('has-custom-cursor')
+    }
+
+    window.addEventListener('pointermove', moveCursor, true)
+    window.addEventListener('pointerover', moveCursor, true)
+    window.addEventListener('pointerdown', moveCursor, true)
+    document.documentElement.addEventListener('pointerleave', hideCursor)
+    window.addEventListener('blur', hideCursor)
+    document.addEventListener('visibilitychange', hideCursor)
+    mouseAvailable.addEventListener('change', hideCursor)
+
+    return () => {
+      window.removeEventListener('pointermove', moveCursor, true)
+      window.removeEventListener('pointerover', moveCursor, true)
+      window.removeEventListener('pointerdown', moveCursor, true)
+      document.documentElement.removeEventListener('pointerleave', hideCursor)
+      window.removeEventListener('blur', hideCursor)
+      document.removeEventListener('visibilitychange', hideCursor)
+      mouseAvailable.removeEventListener('change', hideCursor)
+      hideCursor()
+    }
   }, [])
 
   useEffect(() => {
@@ -90,15 +118,15 @@ function App() {
 
   return (
     <div className="app-shell">
-      <div className={`custom-cursor${cursorLarge ? ' is-large' : ''}`} ref={cursorRef} />
+      <div className={`custom-cursor${cursorLarge ? ' is-large' : ''}`} ref={cursorRef} aria-hidden="true" />
       <div className="app-grain" aria-hidden="true" />
 
       <Navbar onCursorChange={setCursorLarge} />
       <main>
         <HeroSection onCursorChange={setCursorLarge} />
+        <WorkSection sections={workSections} onCursorChange={setCursorLarge} />
         <Marquee items={marqueeLoop} />
         <AboutSection years={years} />
-        <WorkSection sections={workSections} onCursorChange={setCursorLarge} />
         <ContactSection links={contactLinks} onCursorChange={setCursorLarge} />
       </main>
       <SiteFooter />

@@ -22,6 +22,7 @@
   background: var(--color-accent);
   pointer-events: none;
   mix-blend-mode: difference;
+  visibility: hidden;
   transform: translate(-50%, -50%);
   transition: width 180ms ease, height 180ms ease;
 }
@@ -54,7 +55,7 @@
   transition-delay: 300ms;
 }
 
-@media (pointer: coarse) {
+@media not all and (any-pointer: fine) {
   .custom-cursor {
     display: none;
   }

@@ -21,6 +21,39 @@ function buildMuxProjects(projects, category, format, orientation) {
 
 export const workSections = [
   {
+    slug: 'promotional',
+    label: 'Promotional Videos',
+    title: 'Promotional Videos',
+    description: 'Widescreen event and brand videos designed for richer storytelling.',
+    projects: buildMuxProjects(
+      [
+        {
+          title: 'Believe Fitness - Believe Open 2025 Event Video',
+          playbackId: 'Yeuc00QpQRDt72z3Z01PMMdy401wJOQshRCsLxE2o0202a100',
+        },
+        {
+          title: 'The IN8 Summit 2025 Event Video',
+          playbackId: 'g4Wlt684AL02sMHkeittMpe01rbaNDBS9QopQp4C785PM',
+        },
+        {
+          title: 'TCI Promo Video 2025',
+          playbackId: '5UwgHZ01raai00SnHGFxDJoYwlRsV81R01WJhLjzYi8CoI',
+        },
+        {
+          title: 'IN8 Summit - Sponsor Video 2026',
+          playbackId: 'Idu25Dqk3hca8ibU3L2rJ5iT8k022faJyDJ01XP7mIwG00',
+        },
+        {
+          title: 'BF Bangi Outlet Video',
+          playbackId: 'mRQLD009ao4L4MsxZZuCmNMcMPwTSMalIV02ZC27ZbgPk',
+        },
+      ],
+      'Promotional',
+      '16:9',
+      'landscape',
+    ),
+  },
+  {
     slug: 'social-media',
     label: 'Social Media Videos',
     title: 'Social Media Content',
@@ -51,31 +84,6 @@ export const workSections = [
       'Social Media',
       '9:16',
       'portrait',
-    ),
-  },
-  {
-    slug: 'promotional',
-    label: 'Promotional Videos',
-    title: 'Promotional Videos',
-    description: 'Widescreen event and brand videos designed for richer storytelling.',
-    projects: buildMuxProjects(
-      [
-        {
-          title: 'Believe Fitness - Believe Open 2025 Event Video',
-          playbackId: 'Yeuc00QpQRDt72z3Z01PMMdy401wJOQshRCsLxE2o0202a100',
-        },
-        {
-          title: 'The IN8 Summit 2025 Event Video',
-          playbackId: 'g4Wlt684AL02sMHkeittMpe01rbaNDBS9QopQp4C785PM',
-        },
-        {
-          title: 'TCI Promo Video 2025',
-          playbackId: '5UwgHZ01raai00SnHGFxDJoYwlRsV81R01WJhLjzYi8CoI',
-        },
-      ],
-      'Promotional',
-      '16:9',
-      'landscape',
     ),
   },
 ]

@@ -103,7 +103,16 @@
 }
 
 .work-group__grid--promotional {
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  --promotional-gap: 0.1875rem;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--promotional-gap);
+}
+
+.work-group__grid--promotional .work-card {
+  flex: 0 0 calc((100% - 2 * var(--promotional-gap)) / 3);
+  min-width: 0;
 }
 
 .work-card {
@@ -234,12 +243,6 @@
   padding: 1.25rem;
   background: color-mix(in oklab, var(--color-bg) 68%, black);
   backdrop-filter: blur(16px);
-  cursor: none;
-}
-
-.work-modal *,
-.work-modal video {
-  cursor: none;
 }
 
 .work-modal__panel {
@@ -348,6 +351,15 @@
   display: block;
 }
 
+.work-modal__error {
+  margin-bottom: 0.875rem;
+  color: var(--color-text);
+}
+
+.work-modal__error p {
+  margin: 0 0 0.5rem;
+}
+
 @media (max-width: 75rem) {
   .work-group__grid--social-media {
     width: 100%;
@@ -355,8 +367,8 @@
   }
 
   .work-group__grid--promotional {
+    --promotional-gap: 1rem;
     width: 100%;
-    gap: 1rem;
   }
 
   .work-group__grid--social-media .work-card {
@@ -432,6 +444,10 @@
   }
 
   .work-group__grid--social-media .work-card {
+    flex-basis: 100%;
+  }
+
+  .work-group__grid--promotional .work-card {
     flex-basis: 100%;
   }
 
