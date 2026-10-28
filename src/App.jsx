@@ -4,6 +4,7 @@ import HeroSection from './components/HeroSection'
 import Marquee from './components/Marquee'
 import AboutSection from './components/AboutSection'
 import WorkSection from './components/WorkSection'
+import SocialMediaDesign from './components/SocialMediaDesign.tsx'
 import ContactSection from './components/ContactSection'
 import SiteFooter from './components/SiteFooter'
 import {
@@ -125,6 +126,7 @@ function App() {
       <main>
         <HeroSection onCursorChange={setCursorLarge} />
         <WorkSection sections={workSections} onCursorChange={setCursorLarge} />
+        <SocialMediaDesign onCursorChange={setCursorLarge} />
         <Marquee items={marqueeLoop} />
         <AboutSection years={years} />
         <ContactSection links={contactLinks} onCursorChange={setCursorLarge} />
